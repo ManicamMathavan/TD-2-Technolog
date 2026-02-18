@@ -1,4 +1,5 @@
 from pizza import Pizza
+from carte_pizzeria_exception import CartePizzeriaException
 
 class CartePizzeria:
     def __init__(self, pizzas):
@@ -13,9 +14,14 @@ class CartePizzeria:
         self.pizzas.append(pizza)
         
     def remove_pizza(self,name):
-        self.pizzas[:] = [pizza for pizza in self.pizzas if pizza.name!=name] 
+        for pizza  in self.pizzas:
+            if pizza.name==name:
+                self.pizzas.remove(pizza)
+                break
+        raise CartePizzeriaException("pizza not found")
+        # self.pizzas[:] = [pizza for pizza in self.pizzas if pizza.name!=name] 
     
-a=CartePizzeria([Pizza(["salade"],"salade pizza",10)])
+a=CartePizzeria([Pizza(["salade"],"salade pizz",10)])
 print(a.is_empty())
 a.remove_pizza("salade pizza")
 print(a.is_empty())
